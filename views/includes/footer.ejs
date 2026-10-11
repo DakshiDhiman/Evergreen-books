@@ -1,0 +1,98 @@
+<footer class="bg-[#173D35] text-white mt-8">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Brand -->
+            <div>
+                <a href="/" class="inline-block text-2xl font-serif mb-2">
+                    <i class="fa-solid fa-book-open text-[#DCE5D8] mr-2"></i>
+                   Evergreen Books
+                </a>
+
+                <p class="text-[#DCE5D8] leading-6 text-xs max-w-xs">
+                    A little corner for curious minds, thoughtful readers,
+                    and stories that stay with you long after the last page.
+                </p>
+
+                <p class="text-[#DCE5D8] italic font-serif mt-3 text-sm">
+                    Turn a page. Find a world.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h3 class="text-lg font-serif mb-3">Explore</h3>
+
+                <ul class="space-y-2 text-xs text-[#DCE5D8]">
+                    <li><a href="/" class="hover:text-white hover:underline">Home</a></li>
+                    <li><a href="/books" class="hover:text-white hover:underline">All Books</a></li>
+                    <li><a href="/category" class="hover:text-white hover:underline">Categories</a></li>
+                    <li><a href="/about" class="hover:text-white hover:underline">About Us</a></li>
+                    <li><a href="/contact" class="hover:text-white hover:underline">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Categories -->
+            <div>
+                <h3 class="text-lg font-serif mb-3">Browse by Genre</h3>
+
+                <ul class="space-y-2 text-xs text-[#DCE5D8]">
+                    <li><a href="/categories/Fiction" class="hover:text-white hover:underline">Fiction</a></li>
+                    <li><a href="/categories/Finance" class="hover:text-white hover:underline">Finance</a></li>
+                    <li><a href="/categories/Biography" class="hover:text-white hover:underline">Biography</a></li>
+                    <li><a href="/categories/Self-Help" class="hover:text-white hover:underline">Self-Help</a></li>
+                    <li><a href="/category" class="hover:text-white hover:underline">Discover All Genres</a></li>
+                </ul>
+            </div>
+
+            <!-- Help & Contact -->
+            <div>
+                <h3 class="text-lg font-serif mb-3">Need Help?</h3>
+
+                <p class="text-xs text-[#DCE5D8] leading-5 mb-3">
+                    Have a question or suggestion? We'd love to hear from you.
+                </p>
+
+                <a href="/contact"
+                   class="inline-flex items-center gap-2 bg-[#DCE5D8] text-[#173D35] px-4 py-2 rounded-md hover:bg-[#F7F4EC] transition text-xs font-semibold">
+                    <i class="fa-regular fa-envelope"></i>
+                    Get in Touch
+                </a>
+
+                <div class="mt-3">
+                    <a href="/cart"
+                       class="inline-flex items-center gap-2 text-xs text-[#DCE5D8] hover:text-white transition">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        View Your Cart
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="border-t border-[#49685F] mt-6 pt-4">
+
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
+
+                <p class="text-xs text-[#DCE5D8] text-center">
+                    Made for the love of reading.
+                </p>
+
+                <a href="#top"
+                   class="text-xs text-[#DCE5D8] hover:text-white transition"
+                   onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                    Back to top
+                    <i class="fa-solid fa-arrow-up ml-1"></i>
+                </a>
+
+            </div>
+
+            <p class="text-[10px] text-[#DCE5D8] text-center mt-4">
+                &copy; <%= new Date().getFullYear() %> Evergreen Books. All rights reserved.
+            </p>
+
+        </div>
+
+    </div>
+</footer>

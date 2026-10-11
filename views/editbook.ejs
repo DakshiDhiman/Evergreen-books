@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Book | Bookstore</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+  <%- include('includes/nav.ejs') %>
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <h1 class="text-4xl font-serif mb-2">Edit Book</h1><p class="text-[#78877C] mb-8">Update this book's details.</p>
+    <% if (error) { %><p class="bg-red-100 text-red-800 rounded-md p-3 mb-5"><%= error %></p><% } %>
+    <form action="/books/edit/<%= book._id %>" method="POST" enctype="multipart/form-data" class="bg-white border border-[#DCE5D8] rounded-xl p-6 md:p-8 space-y-5">
+      <div><label class="block font-semibold mb-2" for="title">Title *</label><input id="title" name="title" value="<%= book.title %>" required class="w-full border rounded-md p-3 border-[#C8D1C5]"></div>
+      <div><label class="block font-semibold mb-2" for="author">Author *</label><input id="author" name="author" value="<%= book.author %>" required class="w-full border rounded-md p-3 border-[#C8D1C5]"></div>
+      <div><label class="block font-semibold mb-2" for="price">Price (₹) *</label><input id="price" name="price" type="number" min="0" step="0.01" value="<%= book.price %>" required class="w-full border rounded-md p-3 border-[#C8D1C5]"></div>
+      <div><label class="block font-semibold mb-2" for="category">Category *</label><input id="category" name="category" value="<%= book.category %>" required class="w-full border rounded-md p-3 border-[#C8D1C5]"></div>
+      <div><label class="block font-semibold mb-2" for="description">Description</label><textarea id="description" name="description" rows="4" class="w-full border rounded-md p-3 border-[#C8D1C5]"><%= book.description || '' %></textarea></div>
+      <div><label class="block font-semibold mb-2">Current image</label>
+        <% if (book.img) { %><img src="<%= book.img %>" alt="<%= book.title %>" class="h-48 max-w-full object-contain bg-[#E8EDE5] p-2 rounded-md"><% } else { %><p class="text-sm text-[#78877C]">No image uploaded.</p><% } %>
+      </div>
+      <div><label class="block font-semibold mb-2" for="img">Choose a replacement image (optional)</label><input id="img" name="img" type="file" accept="image/*" class="w-full border rounded-md p-3 border-[#C8D1C5]"></div>
+      <div class="flex gap-3"><button class="bg-[#173D35] text-white px-6 py-3 rounded-md" type="submit">Update Book</button><a href="/admin" class="bg-[#DCE5D8] px-6 py-3 rounded-md">Cancel</a></div>
+    </form>
+  </main>
+  <%- include('includes/footer.ejs') %>
+</body>
+</html>

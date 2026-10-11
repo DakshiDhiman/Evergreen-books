@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | Bookstore</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+  <%- include('includes/nav.ejs') %>
+
+  <main class="max-w-6xl mx-auto px-6 py-12">
+
+    <p class="uppercase tracking-[0.25em] text-xs font-bold
+              text-[#78877C] mb-3">
+      YOUR COLLECTION
+    </p>
+
+    <h1 class="text-4xl md:text-5xl font-serif mb-3">
+      Your Shopping Cart
+    </h1>
+
+    <p class="text-[#78877C] mb-8">
+      Your next favourite read is waiting for you.
+    </p>
+
+    <% if (message) { %>
+      <div class="bg-[#DCE5D8] text-[#173D35] p-4 rounded-lg mb-6">
+        <i class="fa-solid fa-circle-check mr-2"></i>
+        <%= message %>
+      </div>
+    <% } %>
+
+    <% if (cartItems.length > 0) { %>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+
+        <section class="lg:col-span-2 space-y-4">
+
+          <% cartItems.forEach(item => { %>
+            <article class="bg-white border border-[#DCE5D8]
+                            rounded-xl p-5 flex gap-5">
+
+              <div class="w-28 h-36 shrink-0 bg-[#E8EDE5]
+                          rounded-lg flex items-center justify-center
+                          overflow-hidden">
+                <% if (item.book.img) { %>
+                  <img src="<%= item.book.img %>"
+                       alt="<%= item.book.title %>"
+                       class="w-full h-full object-contain">
+                <% } else { %>
+                  <span class="text-4xl">📚</span>
+                <% } %>
+              </div>
+
+              <div class="flex-1 min-w-0">
+                <p class="text-xs uppercase tracking-widest
+                          text-[#78877C]">
+                  <%= item.book.category %>
+                </p>
+
+                <h2 class="text-xl font-serif mt-2">
+                  <%= item.book.title %>
+                </h2>
+
+                <p class="text-sm text-[#78877C] mt-1">
+                  by <%= item.book.author %>
+                </p>
+
+                <p class="font-semibold mt-3">
+                  ₹<%= item.book.price.toFixed(2) %>
+                  <span class="text-sm font-normal text-[#78877C]">
+                    × <%= item.quantity %>
+                  </span>
+                </p>
+
+                <div class="flex flex-wrap justify-between
+                            items-center gap-3 mt-4">
+                  <p class="font-bold text-lg">
+                    Subtotal: ₹<%= item.subtotal.toFixed(2) %>
+                  </p>
+
+                  <form
+                    action="/cart/remove/<%= item.book._id %>"
+                    method="POST">
+                    <button type="submit"
+                      class="text-sm text-[#8B3830]
+                             hover:underline">
+                      <i class="fa-solid fa-trash mr-1"></i>
+                      Remove
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+            </article>
+          <% }) %>
+
+          <a href="/books"
+             class="inline-block text-[#173D35] mt-3 hover:underline">
+            <i class="fa-solid fa-arrow-left mr-2"></i>
+            Continue Shopping
+          </a>
+
+        </section>
+
+        <aside class="bg-white border border-[#DCE5D8]
+                      rounded-xl p-6 h-fit">
+          <h2 class="text-2xl font-serif mb-5">
+            Order Summary
+          </h2>
+
+          <div class="flex justify-between mb-4 text-[#78877C]">
+            <span>Items</span>
+            <span>
+              <%= cartItems.reduce((sum, item) =>
+                sum + item.quantity, 0) %>
+            </span>
+          </div>
+
+          <div class="flex justify-between border-t
+                      border-[#DCE5D8] pt-5">
+            <span class="font-semibold">Total</span>
+            <span class="text-xl font-bold">
+              ₹<%= total.toFixed(2) %>
+            </span>
+          </div>
+
+          <p class="text-xs text-[#78877C] mt-4">
+            Delivery charges, if applicable, are not included.
+          </p>
+
+          <button type="button" disabled
+            class="w-full mt-6 bg-[#DCE5D8] text-[#78877C]
+                   py-3 rounded-md cursor-not-allowed">
+            Checkout Coming Soon
+          </button>
+        </aside>
+
+      </div>
+
+    <% } else { %>
+
+      <section class="bg-white border border-[#DCE5D8]
+                      rounded-xl text-center p-10 md:p-16">
+        <div class="text-6xl mb-5">🛍️</div>
+
+        <h2 class="text-3xl font-serif mb-3">
+          Your cart is empty
+        </h2>
+
+        <p class="text-[#78877C] leading-7">
+          Find a book you love and add it to your cart.
+        </p>
+
+        <a href="/books"
+           class="inline-block bg-[#173D35] text-white
+                  px-6 py-3 rounded-md mt-7
+                  hover:bg-[#285548] transition">
+          Explore Books
+        </a>
+      </section>
+
+    <% } %>
+
+  </main>
+
+  <%- include('includes/footer.ejs') %>
+
+</body>
+</html>

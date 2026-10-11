@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Books | Bookstore</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+  <%- include('includes/nav.ejs') %>
+
+  <main class="max-w-6xl mx-auto px-6 py-14">
+
+    <!-- Page Heading -->
+    <div class="flex flex-wrap justify-between items-end gap-5 mb-10">
+
+      <div>
+        <p class="uppercase tracking-[0.25em] text-xs font-bold text-[#78877C] mb-3">
+          THE BOOK COLLECTION
+        </p>
+
+        <h1 class="text-4xl md:text-5xl font-serif mb-3">
+          <%= (typeof isAdmin !== 'undefined' && isAdmin)
+            ? 'Manage Your Books' : 'Discover Books' %>
+        </h1>
+
+        <p class="text-[#78877C] leading-7">
+          <%= (typeof isAdmin !== 'undefined' && isAdmin)
+            ? 'View, edit, and manage the books in your collection.'
+            : 'Find your next favourite among our collection of stories and ideas.' %>
+        </p>
+      </div>
+
+      <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+        <div class="flex flex-wrap items-center gap-3">
+
+          <a
+            href="/books/new"
+            class="inline-flex items-center gap-2 bg-[#173D35] text-white px-6 py-3 rounded-md hover:bg-[#285548] transition"
+          >
+            <i class="fa-solid fa-plus"></i>
+            Add New Book
+          </a>
+
+          <a
+            href="/admin/logout"
+            class="inline-flex items-center gap-2 bg-[#F7E8E5] text-[#8B3830] px-6 py-3 rounded-md hover:bg-[#EFD3CE] transition"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </a>
+
+        </div>
+      <% } %>
+
+    </div>
+
+    <!-- Book Cards -->
+    <% if (books && books.length > 0) { %>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <% books.forEach(book => { %>
+
+          <article class="bg-white rounded-xl overflow-hidden border border-[#DCE5D8] hover:shadow-md transition">
+
+            <!-- Book Image -->
+            <div class="h-64 bg-[#E8EDE5] flex items-center justify-center overflow-hidden">
+
+              <% if (book.img) { %>
+
+                <img
+                  src="<%= book.img %>"
+                  alt="<%= book.title %>"
+                  class="w-full h-full object-contain"
+                >
+
+              <% } else { %>
+
+                <span class="text-6xl"></span>
+
+              <% } %>
+
+            </div>
+
+            <!-- Book Details -->
+            <div class="p-5">
+
+              <p class="text-xs uppercase tracking-widest text-[#78877C]">
+                <%= book.category || 'General' %>
+              </p>
+
+              <h2 class="text-2xl font-serif mt-2 leading-snug">
+                <%= book.title %>
+              </h2>
+
+              <p class="text-sm text-[#78877C] mt-1">
+                by <%= book.authorName || book.author || 'Unknown Author' %>
+              </p>
+
+              <% if (book.description) { %>
+                <p class="text-sm text-[#344C45] leading-6 mt-3">
+                  <%= book.description %>
+                </p>
+              <% } %>
+
+              <!-- Price and Cart -->
+              <div class="flex items-center justify-between mt-5 pt-4 border-t border-[#DCE5D8]">
+
+                <p class="text-amber-800 font-bold text-lg">
+                  ₹<%= book.price %>
+                </p>
+
+                <% if (!(typeof isAdmin !== 'undefined' && isAdmin)) { %>
+
+                  <form action="/cart/add" method="POST">
+                    <input
+                      type="hidden"
+                      name="bookId"
+                      value="<%= book._id %>"
+                    >
+
+                    <button
+                      type="submit"
+                      title="Add to Cart"
+                      aria-label="Add <%= book.title %> to cart"
+                      class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-700 hover:text-white inline-flex items-center justify-center transition"
+                    >
+                      <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                  </form>
+
+                <% } %>
+
+              </div>
+
+              <!-- Admin Actions -->
+              <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+
+                <div class="grid grid-cols-2 gap-3 mt-5">
+
+                  <a
+                    href="/books/edit/<%= book._id %>"
+                    class="flex items-center justify-center gap-2 bg-[#DCE5D8] text-[#173D35] py-3 rounded-md hover:bg-[#C8D6C3] transition font-semibold text-sm"
+                  >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Edit
+                  </a>
+
+                  <form
+                    action="/books/delete/<%= book._id %>"
+                    method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this book?');"
+                  >
+                    <button
+                      type="submit"
+                      class="w-full flex items-center justify-center gap-2 bg-[#F7E8E5] text-[#8B3830] py-3 rounded-md hover:bg-[#EFD3CE] transition font-semibold text-sm"
+                    >
+                      <i class="fa-solid fa-trash"></i>
+                      Delete
+                    </button>
+                  </form>
+
+                </div>
+
+              <% } %>
+
+            </div>
+
+          </article>
+
+        <% }) %>
+
+      </div>
+
+    <% } else { %>
+
+      <!-- Empty State -->
+      <div class="bg-white border border-[#DCE5D8] rounded-xl p-10 md:p-14 text-center">
+
+        <div class="text-5xl mb-5">📚</div>
+
+        <h2 class="text-3xl font-serif mb-3">
+          Your shelves are waiting.
+        </h2>
+
+        <p class="text-[#78877C] leading-7 mb-6">
+          <%= (typeof isAdmin !== 'undefined' && isAdmin)
+            ? 'There are no books yet. Add your first book to get started.'
+            : 'No books are available at the moment. Please check again later.' %>
+        </p>
+
+        <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+          <a
+            href="/books/new"
+            class="inline-block bg-[#173D35] text-white px-6 py-3 rounded-md hover:bg-[#285548] transition"
+          >
+            <i class="fa-solid fa-plus mr-2"></i>
+            Add Your First Book
+          </a>
+        <% } %>
+
+      </div>
+
+    <% } %>
+
+  </main>
+
+  <%- include('includes/footer.ejs') %>
+
+</body>
+</html>

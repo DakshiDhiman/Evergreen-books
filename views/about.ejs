@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Us | Bookstore</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+  <%- include('includes/nav.ejs') %>
+
+  <main>
+
+    <!-- Hero Section -->
+    <section class="bg-[#DCE5D8] px-6 py-20 md:py-28">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+        <div>
+          <p class="uppercase tracking-[0.25em] text-xs font-bold mb-4 text-[#78877C]">
+            A LITTLE ABOUT US
+          </p>
+
+          <h1 class="text-5xl md:text-7xl font-serif leading-tight mb-6">
+            More than books. A world of stories.
+          </h1>
+
+          <p class="max-w-xl leading-7 text-[#344C45] mb-8">
+            We believe every book has something to offer — a new idea,
+            a different perspective, or a little escape from everyday life.
+            Our bookstore is a place for curious minds and people who love
+            getting lost in a good story.
+          </p>
+
+          <a
+            href="/books"
+            class="inline-block bg-[#173D35] text-white px-7 py-3 rounded-md hover:bg-[#285548] transition"
+          >
+            Explore Books
+          </a>
+        </div>
+
+        <div class="bg-[#F7F4EC] border border-[#D8C6A5] p-10 md:p-10 rounded-2xl text-center">
+          <div class="text-7xl mb-6">
+            <img src="uploads/about.png" alt=""
+            class="w-[550px] h-[280px] object-cover ">
+            
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="max-w-6xl mx-auto px-6 py-16 md:py-20">
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+
+        <div>
+          <p class="uppercase tracking-widest text-xs text-[#78877C] mb-3">
+            OUR STORY
+          </p>
+
+          <h2 class="text-3xl md:text-4xl font-serif leading-tight mb-6">
+            A quiet love for the written word.
+          </h2>
+
+          <p class="text-[#344C45] leading-7 mb-4">
+            Our bookstore was created around a simple idea: finding a good
+            book should feel exciting, welcoming, and personal.
+          </p>
+
+          <p class="text-[#344C45] leading-7 mb-4">
+            From imaginative fiction and inspiring biographies to finance
+            and self-improvement, we bring together books for different
+            interests, moods, and stages of life.
+          </p>
+
+          <p class="text-[#344C45] leading-7">
+            Whether you are choosing your next favourite novel or looking
+            for knowledge that helps you grow, we hope you find something
+            here worth turning the page for.
+          </p>
+        </div>
+
+        <div class="bg-white border border-[#DCE5D8] rounded-2xl p-8 md:p-10">
+
+          <div class="border-b border-[#DCE5D8] pb-6 mb-6">
+            <span class="text-2xl text-[#78877C]">
+              <i class="fa-solid fa-book-open"></i>
+            </span>
+
+            <h3 class="text-2xl font-serif mt-3 mb-2">
+              Stories for everyone
+            </h3>
+
+            <p class="text-[#344C45] leading-6">
+              Explore different genres and discover books that suit your
+              interests.
+            </p>
+          </div>
+
+          <div class="border-b border-[#DCE5D8] pb-6 mb-6">
+            <span class="text-2xl text-[#78877C]">
+              <i class="fa-solid fa-leaf"></i>
+            </span>
+
+            <h3 class="text-2xl font-serif mt-3 mb-2">
+              A thoughtful collection
+            </h3>
+
+            <p class="text-[#344C45] leading-6">
+              Find stories that entertain, knowledge that inspires, and
+              ideas that stay with you.
+            </p>
+          </div>
+
+          <div>
+            <span class="text-2xl text-[#78877C]">
+              <i class="fa-solid fa-heart"></i>
+            </span>
+
+            <h3 class="text-2xl font-serif mt-3 mb-2">
+              Made for book lovers
+            </h3>
+
+            <p class="text-[#344C45] leading-6">
+              A welcoming space for readers, learners, and curious minds.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="bg-[#DCE5D8] px-6 py-16 md:py-20">
+
+      <div class="max-w-6xl mx-auto">
+
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <p class="uppercase tracking-widest text-xs text-[#78877C] mb-3">
+            WHAT WE BELIEVE
+          </p>
+
+          <h2 class="text-3xl md:text-4xl font-serif mb-4">
+            The things that make books special.
+          </h2>
+
+          <p class="text-[#344C45] leading-7">
+            Reading is more than a habit. It is a way to learn, imagine,
+            reflect, and see the world differently.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <article class="bg-[#F7F4EC] border border-[#D8C6A5] rounded-xl p-7">
+            <div class="text-3xl text-[#78877C] mb-5">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+
+            <h3 class="text-2xl font-serif mb-3">
+              Keep Learning
+            </h3>
+
+            <p class="text-[#344C45] leading-7">
+              Every book offers an opportunity to discover something new
+              and grow through knowledge.
+            </p>
+          </article>
+
+          <article class="bg-[#F7F4EC] border border-[#D8C6A5] rounded-xl p-7">
+            <div class="text-3xl text-[#78877C] mb-5">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+
+            <h3 class="text-2xl font-serif mb-3">
+              Imagine More
+            </h3>
+
+            <p class="text-[#344C45] leading-7">
+              Stories take us to new places, introduce unforgettable
+              characters, and open doors to imagination.
+            </p>
+          </article>
+
+          <article class="bg-[#F7F4EC] border border-[#D8C6A5] rounded-xl p-7">
+            <div class="text-3xl text-[#78877C] mb-5">
+              <i class="fa-solid fa-bookmark"></i>
+            </div>
+
+            <h3 class="text-2xl font-serif mb-3">
+              Find Your Story
+            </h3>
+
+            <p class="text-[#344C45] leading-7">
+              Whether you enjoy fiction, finance, or biographies,
+              there is always another book waiting to be discovered.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section class="max-w-6xl mx-auto px-6 py-16 md:py-20">
+
+      <div class="bg-[#173D35] text-white rounded-2xl px-6 py-12 md:p-16 text-center">
+
+        <p class="uppercase tracking-[0.25em] text-xs text-[#DCE5D8] mb-4">
+          YOUR NEXT CHAPTER STARTS HERE
+        </p>
+
+        <h2 class="text-3xl md:text-5xl font-serif leading-tight mb-5">
+          There's a book for every kind of reader.
+        </h2>
+
+        <p class="max-w-2xl mx-auto text-[#DCE5D8] leading-7 mb-8">
+          Take your time, explore our collection, and find a book
+          that feels like it was meant for you.
+        </p>
+
+        <a
+          href="/books"
+          class="inline-block bg-[#F7F4EC] text-[#173D35] px-7 py-3 rounded-md hover:bg-[#DCE5D8] transition"
+        >
+          Browse the Collection
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <%- include('includes/footer.ejs') %>
+
+</body>
+</html>
+

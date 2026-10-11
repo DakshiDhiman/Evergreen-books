@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | Bookstore</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-[#F7F4EC] text-[#173D35] flex items-center justify-center px-5">
+
+  <main class="w-full max-w-sm">
+
+    <!-- Brand -->
+    <a href="/" class="flex justify-center items-center gap-3 mb-8">
+      <span class="text-3xl">📚</span>
+      <span class="text-3xl font-serif">Bookstore</span>
+    </a>
+
+    <!-- Login Form -->
+    <div class="bg-white border border-[#DCE5D8] rounded-xl p-7 sm:p-9">
+
+      <h1 class="text-3xl font-serif mb-2 text-center">
+        Admin Login
+      </h1>
+
+      <p class="text-sm text-[#78877C] text-center mb-7">
+        Sign in to manage your bookstore.
+      </p>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md mb-5">
+          <%= error %>
+        </p>
+      <% } %>
+
+      <form action="/admin/login" method="POST" class="space-y-5">
+
+        <div>
+          <label for="username" class="block text-sm font-semibold mb-2">
+            Username
+          </label>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            autocomplete="username"
+            placeholder="Enter username"
+            class="w-full border border-[#DCE5D8] bg-[#F7F4EC] rounded-md px-4 py-3 outline-none focus:border-[#173D35]"
+          >
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-semibold mb-2">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            autocomplete="current-password"
+            placeholder="Enter password"
+            class="w-full border border-[#DCE5D8] bg-[#F7F4EC] rounded-md px-4 py-3 outline-none focus:border-[#173D35]"
+          >
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-[#173D35] text-white py-3 rounded-md hover:bg-[#285548] transition font-semibold">
+          Login
+        </button>
+     </form>
+    </div>
+
+    <p class="text-center text-sm text-[#78877C] mt-6">
+      <a href="/" class="hover:text-[#173D35] underline underline-offset-4">
+        Back to bookstore
+      </a>
+    </p>
+
+  </main>
+</body>
+</html>
+

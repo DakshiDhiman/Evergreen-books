@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | Bookstore</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+    <%- include('includes/nav.ejs') %>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+        <!-- Page Header -->
+        <header class="text-center py-8">
+
+            <p class="uppercase tracking-[0.3em] text-xs text-[#78877C] mb-4">
+                Explore the collection
+            </p>
+
+            <h1 class="text-5xl md:text-6xl font-serif">
+                Find Your Next Chapter
+            </h1>
+
+            <p class="max-w-xl mx-auto mt-5 leading-7 text-[#78877C]">
+                Discover stories, knowledge, and new perspectives across our collection.
+            </p>
+
+        </header>
+
+        <!-- Category Filters -->
+        <section class="bg-[#DCE5D8] border border-[#D8C6A5] p-5 rounded-xl mb-10">
+
+            <div class="flex flex-wrap justify-center gap-3">
+
+                <a href="/category"
+                   class="px-4 py-2 rounded-md <%= !selectedCategory ? 'bg-[#173D35] text-white' : 'bg-white' %>">
+                    All Books
+                </a>
+
+                <% ['Fiction', 'Academics', 'Mystery', 'Fantasy', 'Science-fiction', 'Biography', 'Self Help'].forEach(category => { %>
+
+                    <a href="/categories/<%= encodeURIComponent(category) %>"
+                       class="px-4 py-2 rounded-md <%= selectedCategory && selectedCategory.toLowerCase() === category.toLowerCase() ? 'bg-[#173D35] text-white' : 'bg-white' %>">
+                        <%= category %>
+                    </a>
+
+                <% }) %>
+
+            </div>
+
+        </section>
+
+        <!-- Collection Heading -->
+        <div class="flex justify-between items-end gap-4 mb-6">
+
+            <h2 class="text-3xl font-serif">
+                <%= selectedCategory || 'All Books' %>
+            </h2>
+
+            <span class="text-sm text-[#78877C]">
+                <%= books.length %> books
+            </span>
+
+        </div>
+
+        <!-- Books Collection -->
+        <% if (books.length) { %>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <% books.forEach(book => { %>
+
+                    <article class="bg-white rounded-xl overflow-hidden border border-[#DCE5D8]">
+
+                        <!-- Book Image -->
+                        <div class="h-64 bg-[#E8EDE5] flex items-center justify-center">
+
+                            <% if (book.img) { %>
+
+                                <img
+                                    src="<%= book.img %>"
+                                    alt="<%= book.title %>"
+                                    class="w-full h-full object-contain">
+
+                            <% } else { %>
+
+                                <span class="text-6xl">📚</span>
+
+                            <% } %>
+
+                        </div>
+
+                        <!-- Book Details -->
+                        <div class="p-5">
+
+                            <p class="text-xs uppercase tracking-widest text-[#78877C]">
+                                <%= book.category %>
+                            </p>
+
+                            <h3 class="text-2xl font-serif mt-2">
+                                <%= book.title %>
+                            </h3>
+
+                            <p class="text-sm text-[#78877C] mt-1">
+                                by <%= book.authorName || book.author || 'Unknown Author' %>
+                            </p>
+
+                            <% if (book.description) { %>
+
+                                <p class="text-sm text-[#344C45] leading-6 mt-3">
+                                    <%= book.description %>
+                                </p>
+
+                            <% } %>
+
+                            <!-- Price and Cart Button -->
+                            <div class="flex items-center justify-between mt-5 pt-4 border-t border-[#DCE5D8]">
+
+                                <p class="text-amber-800 font-bold text-lg">
+                                    ₹<%= book.price %>
+                                </p>
+
+                                <% if (!(typeof isAdmin !== 'undefined' && isAdmin)) { %>
+
+                                    <form action="/cart/add" method="POST" class="add-to-cart-form">
+
+                                        <input
+                                            type="hidden"
+                                            name="bookId"
+                                            value="<%= book._id %>">
+
+                                        <button
+                                            type="submit"
+                                            class="w-10 h-10 flex items-center justify-center bg-[#173D35] text-white rounded-full hover:bg-[#285548] transition"
+                                            aria-label="Add to cart"
+                                            title="Add to cart">
+
+                                            <i class="fa-solid fa-cart-shopping"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                <% } %>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+        <% } else { %>
+
+            <!-- Empty Collection -->
+            <div class="bg-white border border-[#DCE5D8] rounded-xl p-12 text-center">
+
+                <h3 class="text-3xl font-serif">
+                    The shelves are quiet
+                </h3>
+
+                <p class="text-[#78877C] mt-3">
+                    There are no books in this category yet.
+                </p>
+
+                <a href="/category"
+                   class="inline-block mt-6 bg-[#173D35] text-white px-5 py-3 rounded-md">
+                    View All Books
+                </a>
+
+            </div>
+
+        <% } %>
+
+    </main>
+
+    <%- include('includes/footer.ejs') %>
+
+    <!-- Add to Cart Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            document.querySelectorAll('.add-to-cart-form').forEach(form => {
+
+                form.addEventListener('submit', async function (event) {
+
+                    event.preventDefault();
+
+                    const button = form.querySelector('button');
+                    const originalContent = button.innerHTML;
+
+                    button.disabled = true;
+                    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+                    try {
+
+                        const response = await fetch('/cart/add', {
+                            method: 'POST',
+                            body: new URLSearchParams(new FormData(form)),
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            }
+                        });
+
+                        const result = await response.json();
+
+                        if (!response.ok || !result.success) {
+                            console.error(result.message || 'Unable to add book.');
+                            button.innerHTML = originalContent;
+                            return;
+                        }
+
+                        button.innerHTML = '<i class="fa-solid fa-check"></i>';
+                        const badge = document.getElementById('cart-count-badge');
+
+                        if (badge && typeof result.cartCount === 'number') {
+                            badge.textContent = result.cartCount;
+                            badge.classList.remove('hidden');
+                        }
+
+                        setTimeout(() => {
+                            button.innerHTML = originalContent;
+                        }, 1000);
+
+                    } catch (error) {
+
+                        console.error('Cart error:', error);
+                        button.innerHTML = originalContent;
+
+                    } finally {
+
+                        button.disabled = false;
+
+                    }
+
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

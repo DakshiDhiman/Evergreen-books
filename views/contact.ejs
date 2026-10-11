@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact Us | Bookstore</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+  <%- include('includes/nav.ejs') %>
+
+  <main>
+
+    <!-- Contact Hero -->
+    <section class="bg-[#DCE5D8] px-6 py-14 md:py-20">
+      <div class="max-w-6xl mx-auto">
+
+        <p class="uppercase tracking-[0.3em] text-xs font-bold text-[#78877C] mb-4">
+          LET'S CONNECT
+        </p>
+
+        <h1 class="text-5xl md:text-6xl font-serif leading-tight mb-5">
+          We'd love to hear <br class="hidden md:block"> from you.
+        </h1>
+
+        <p class="max-w-xl text-[#344C45] leading-7">
+          Have a question about a book, need a little help, or simply want
+          to share your thoughts? Send us a message. We're listening.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="max-w-6xl mx-auto px-6 py-12 md:py-16">
+
+      <div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+
+        <!-- Left Information Panel -->
+        <div class="lg:col-span-2">
+
+          <div class="bg-[#173D35] text-white rounded-2xl p-7 md:p-9">
+
+            <p class="uppercase tracking-[0.2em] text-xs text-[#DCE5D8] mb-4">
+              GET IN TOUCH
+            </p>
+
+            <h2 class="text-3xl font-serif leading-snug mb-4">
+              Every good conversation starts somewhere.
+            </h2>
+
+            <p class="text-[#DCE5D8] leading-7 mb-9">
+              Just like a good book, every message has a story.
+              Tell us what's on your mind.
+            </p>
+
+            <div class="space-y-7">
+
+              <div class="flex gap-4 items-start">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-[#DCE5D8] text-[#173D35] flex items-center justify-center">
+                  <i class="fa-solid fa-book-open"></i>
+                </div>
+
+                <div>
+                  <h3 class="font-semibold mb-1">Book enquiries</h3>
+                  <p class="text-sm text-[#DCE5D8] leading-6">
+                    Questions about books, genres, or our collection?
+                    We're happy to help.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4 items-start">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-[#DCE5D8] text-[#173D35] flex items-center justify-center">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <div>
+                  <h3 class="font-semibold mb-1">Send us a message</h3>
+                  <p class="text-sm text-[#DCE5D8] leading-6">
+                    Use the contact form to share your questions,
+                    suggestions, or feedback.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4 items-start">
+                <div class="w-11 h-11 shrink-0 rounded-full bg-[#DCE5D8] text-[#173D35] flex items-center justify-center">
+                  <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div>
+                  <h3 class="font-semibold mb-1">Reader feedback</h3>
+                  <p class="text-sm text-[#DCE5D8] leading-6">
+                    Your thoughts help us make your reading experience better.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="border-t border-[#49685F] mt-9 pt-6">
+              <p class="font-serif italic text-[#DCE5D8]">
+                "A reader lives a thousand lives before he dies."
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Contact Form -->
+        <div class="lg:col-span-3">
+
+          <div class="bg-white border border-[#DCE5D8] rounded-2xl p-6 md:p-10">
+
+            <div class="mb-8">
+              <p class="uppercase tracking-widest text-xs text-[#78877C] mb-3">
+                YOUR MESSAGE
+              </p>
+
+              <h2 class="text-3xl md:text-4xl font-serif mb-3">
+                Write to us
+              </h2>
+
+              <p class="text-[#78877C] leading-6">
+                Fill in the details below and we'll be glad to hear from you.
+              </p>
+            </div>
+
+            <% if (message) { %>
+              <div class="bg-[#DCE5D8] text-[#173D35] border border-[#C8D1C5] p-4 rounded-lg mb-6">
+                <i class="fa-solid fa-circle-check mr-2"></i>
+                <%= message %>
+              </div>
+            <% } %>
+
+            <% if (error) { %>
+              <div class="bg-red-50 text-red-800 border border-red-200 p-4 rounded-lg mb-6">
+                <i class="fa-solid fa-circle-exclamation mr-2"></i>
+                <%= error %>
+              </div>
+            <% } %>
+
+            <form action="/contact" method="POST" class="space-y-6">
+
+              <div>
+                <label for="name" class="block text-sm font-semibold mb-2">
+                  Your name <span class="text-[#78877C]">*</span>
+                </label>
+
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  placeholder="Enter your full name"
+                  class="w-full bg-[#F7F4EC] border border-[#DCE5D8] rounded-lg px-4 py-3 outline-none focus:border-[#173D35] focus:ring-2 focus:ring-[#DCE5D8] transition"
+                >
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-semibold mb-2">
+                  Email address <span class="text-[#78877C]">*</span>
+                </label>
+
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  class="w-full bg-[#F7F4EC] border border-[#DCE5D8] rounded-lg px-4 py-3 outline-none focus:border-[#173D35] focus:ring-2 focus:ring-[#DCE5D8] transition"
+                >
+              </div>
+
+              <div>
+                <label for="mob" class="block text-sm font-semibold mb-2">
+                  Mobile number
+                  <span class="font-normal text-[#78877C]">(optional)</span>
+                </label>
+
+                <input
+                  id="mob"
+                  name="mob"
+                  type="tel"
+                  autocomplete="tel"
+                  placeholder="Enter your phone number"
+                  class="w-full bg-[#F7F4EC] border border-[#DCE5D8] rounded-lg px-4 py-3 outline-none focus:border-[#173D35] focus:ring-2 focus:ring-[#DCE5D8] transition"
+                >
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-semibold mb-2">
+                  Your message <span class="text-[#78877C]">*</span>
+                </label>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  placeholder="Tell us how we can help..."
+                  class="w-full resize-y bg-[#F7F4EC] border border-[#DCE5D8] rounded-lg px-4 py-3 outline-none focus:border-[#173D35] focus:ring-2 focus:ring-[#DCE5D8] transition"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-[#173D35] text-white px-6 py-4 rounded-lg hover:bg-[#285548] transition flex items-center justify-center gap-3 font-semibold"
+              >
+                Send Your Message
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+
+              <p class="text-xs text-center text-[#78877C]">
+                Thank you for being part of our reading community.
+              </p>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <%- include('includes/footer.ejs') %>
+
+</body>
+</html>
+

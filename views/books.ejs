@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books | Bookstore</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-[#F7F4EC] text-[#173D35] min-h-screen">
+
+    <%- include('includes/nav.ejs') %>
+
+    <main class="max-w-6xl mx-auto px-6 py-14">
+
+        <div class="mb-10">
+            <p class="uppercase tracking-[0.25em] text-xs font-bold text-[#78877C] mb-3">
+                THE BOOK COLLECTION
+            </p>
+
+            <h1 class="text-4xl md:text-5xl font-serif mb-3">
+                Discover Books
+            </h1>
+
+            <p class="text-[#78877C] leading-7">
+                Find your next favourite among our collection of stories and ideas.
+            </p>
+        </div>
+
+        <% if (books && books.length > 0) { %>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <% books.forEach(book => { %>
+
+                    <article class="bg-white rounded-xl overflow-hidden border border-[#DCE5D8] hover:shadow-md transition">
+
+                        <div class="h-64 bg-[#E8EDE5] flex items-center justify-center overflow-hidden">
+                            <% if (book.img) { %>
+                                <img
+                                    src="<%= book.img %>"
+                                    alt="<%= book.title %>"
+                                    class="w-full h-full object-contain"
+                                >
+                            <% } else { %>
+                                <span class="text-6xl">📚</span>
+                            <% } %>
+                        </div>
+
+                        <div class="p-5">
+
+                            <p class="text-xs uppercase tracking-widest text-[#78877C]">
+                                <%= book.category || 'General' %>
+                            </p>
+
+                            <h2 class="text-2xl font-serif mt-2 leading-snug">
+                                <%= book.title %>
+                            </h2>
+
+                            <p class="text-sm text-[#78877C] mt-1">
+                                by <%= book.authorName || book.author || 'Unknown Author' %>
+                            </p>
+
+                            <% if (book.description) { %>
+                                <p class="text-sm text-[#344C45] leading-6 mt-3">
+                                    <%= book.description %>
+                                </p>
+                            <% } %>
+
+                            <!-- Price and Cart Icon -->
+                            <div class="flex items-center justify-between mt-5 pt-4 border-t border-[#DCE5D8]">
+
+                                <p class="text-amber-800 font-bold text-lg">
+                                    ₹<%= book.price %>
+                                </p>
+
+                                <form action="/cart/add" method="POST" class="add-to-cart-form">
+                                    <input
+                                        type="hidden"
+                                        name="bookId"
+                                        value="<%= book._id %>"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="w-10 h-10 flex items-center justify-center bg-[#173D35] text-white rounded-full hover:bg-[#285548] transition disabled:opacity-60"
+                                        aria-label="Add to cart"
+                                        title="Add to cart"
+                                    >
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </article>
+
+                <% }); %>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="bg-white border border-[#DCE5D8] rounded-xl p-10 md:p-14 text-center">
+                <div class="text-5xl mb-5">📚</div>
+
+                <h2 class="text-3xl font-serif mb-3">
+                    Your shelves are waiting.
+                </h2>
+
+                <p class="text-[#78877C] leading-7">
+                    No books are available at the moment. Please check again later.
+                </p>
+            </div>
+
+        <% } %>
+
+    </main>
+
+    <%- include('includes/footer.ejs') %>
+
+    <!-- Add to cart without reloading the page -->
+  
+        
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const button = form.querySelector('button');
+            const originalContent = button.innerHTML;
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+            try {
+                console.log('Cart button clicked');
+                console.log('Book ID:', form.querySelector('[name="bookId"]').value);
+
+               const response = await fetch('/cart/add', {
+    method: 'POST',
+    body: new URLSearchParams(new FormData(form)),
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+});
+
+                const result = await response.json();
+
+                console.log('Server response:', result);
+
+                if (!response.ok || !result.success) {
+                    console.error(result.message || 'Unable to add book.');
+                    button.innerHTML = originalContent;
+                    return;
+                }
+
+                button.innerHTML = '<i class="fa-solid fa-check"></i>';
+                const badge = document.getElementById('cart-count-badge');
+
+if (badge && typeof result.cartCount === 'number') {
+    badge.textContent = result.cartCount;
+    badge.classList.remove('hidden');
+}
+
+                setTimeout(() => {
+                    button.innerHTML = originalContent;
+                }, 1000);
+
+            } catch (error) {
+                console.error('Cart error:', error);
+                button.innerHTML = originalContent;
+            } finally {
+                button.disabled = false;
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

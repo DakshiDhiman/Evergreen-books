@@ -1,0 +1,89 @@
+<header class="bg-[#F7F4EC] border-b border-[#DCE5D8] sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-6 py-5 grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-5">
+
+        <!-- Logo -->
+        <div class="flex justify-center md:justify-start">
+        <a href="/" class="inline-block text-3xl font-serif font-medium text-[#173D35]">
+                <i class="fa-solid fa-book-open mr-2"></i>
+                Evergreen Books
+            </a><span class="text-[#78877C]">.</span>
+            </a>
+        </div>
+
+        <!-- Center Navigation Menu -->
+        <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-base md:text-lg">
+
+            <a href="/" class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                Home
+            </a>
+
+            <a href="/books" class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                Books
+            </a>
+
+            <a href="/category" class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                Categories
+            </a>
+
+            <a href="/about" class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                About
+            </a>
+
+            <a href="/contact" class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                Contact
+            </a>
+
+        </div>
+
+        <!-- Cart and Admin -->
+        <div class="flex flex-wrap justify-center md:justify-end items-center gap-4">
+
+            <!-- Cart Icon with Notification Badge -->
+            <a href="/cart"
+               aria-label="Shopping cart"
+               title="Shopping Cart"
+               class="relative flex items-center justify-center w-11 h-11 rounded-md text-[#173D35] hover:bg-[#E8EDE5] hover:text-[#285548] transition">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2.8"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     class="w-7 h-7">
+
+                    <circle cx="9" cy="21" r="1"/>
+                    <circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+
+                </svg>
+
+                <span id="cart-count-badge"
+                      class="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-red-600 text-white text-xs font-bold rounded-full flex items-center justify-center <%= (typeof cartCount !== 'undefined' && cartCount > 0) ? '' : 'hidden' %>">
+                    <%= typeof cartCount !== 'undefined' ? cartCount : 0 %>
+                </span>
+
+            </a>
+
+            <!-- Admin Options -->
+            <% if (typeof isAdmin !== 'undefined' && isAdmin) { %>
+                <a href="/admin" title="Admin Panel"
+                class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                <i class="fa-solid fa-user text-xl"></i>
+                </a>
+
+            <% } else { %>
+
+                <a href="/admin/login"
+                   class="px-2 py-3 rounded-md text-[#344C45] hover:bg-[#E8EDE5] hover:text-[#173D35] transition">
+                   <i class="fa-solid fa-user text-xl"></i>
+                    
+                </a>
+
+            <% } %>
+
+        </div>
+
+    </nav>
+</header>
