@@ -96,8 +96,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     name: 'bookstore.sid',
-    secret: process.env.SESSION_SECRET ||
-        'development-only-change-this-secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 
@@ -567,7 +566,7 @@ app.get('/cart', asyncRoute(async (req, res) => {
         );
 
         validCart.push({
-            bookId: book._id.toString(),
+            bookId: book._id.toString(), 
             quantity
         });
 
@@ -643,8 +642,7 @@ app.use((error, req, res, next) => {
 async function startServer() {
     try {
         await mongoose.connect(
-            process.env.MONGODB_URI ||
-            'mongodb://127.0.0.1:27017/bookstore'
+            process.env.MONGODB_URI
         );
 
         console.log('MongoDB connected successfully.');
