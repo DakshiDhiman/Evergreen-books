@@ -1,3 +1,7 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
+require('dotenv').config();
+
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -11,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin1234';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '1234';
 
 const uploadDir = path.join(__dirname, 'uploads');
 
@@ -96,7 +100,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     name: 'bookstore.sid',
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: false,
 
