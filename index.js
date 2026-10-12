@@ -97,7 +97,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(uploadDir));
 
 app.use(express.urlencoded({ extended: true }));
-
+app.set('trust proxy', 1);
 app.use(session({
     name: 'bookstore.sid',
     secret: process.env.SESSION_SECRET, 
