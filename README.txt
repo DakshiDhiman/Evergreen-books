@@ -22,7 +22,7 @@ SETUP:
 
 DEFAULT LOCAL ADMIN LOGIN:
 Username: admin
-Password: admin1234
+Password: 1234
 
 IMPORTANT:
 - Change the default admin username/password in .env before deploying online.
